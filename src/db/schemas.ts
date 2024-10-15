@@ -15,8 +15,12 @@ export const accounts = sqliteTable("accounts", {
   password: text("password").notNull(),
   name: text("name"),
   img: text("img").unique(),
-  createdAt: text("created_at").default(sql`(CURRENT_TIMESTAMP)`),
-  updateAt: text("updated_at").$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+  createdAt: text("created_at")
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .notNull(),
+  updateAt: text("updated_at")
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+    .notNull(),
 });
 
 export const follows = sqliteTable(
@@ -46,8 +50,12 @@ export const messages = sqliteTable("messages", {
   id: text("id", { length: 36 })
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  createdAt: text("created_at").default(sql`(CURRENT_TIMESTAMP)`),
-  updateAt: text("updated_at").$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+  createdAt: text("created_at")
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .notNull(),
+  updateAt: text("updated_at")
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+    .notNull(),
   text: text("text").notNull(),
 
   senderId: text("sender_id")

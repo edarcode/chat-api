@@ -6,6 +6,7 @@ import { errorHandler } from "./errHandler";
 import { authRouter } from "../modules/auth/authRouter";
 import { accountsRouter } from "../modules/account/accountsRouter";
 import { followsRouter } from "../modules/follows/followsRouter";
+import { messagesRouter } from "../modules/messages/messagesRouter";
 
 // server
 
@@ -22,6 +23,7 @@ server.use("", welcomeRouter);
 server.use("/auth", authRouter);
 server.use("/account", accountsRouter);
 server.use("/follows", followsRouter);
+server.use("/messages", messagesRouter);
 
 // handlers
 
