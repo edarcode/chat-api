@@ -1,6 +1,6 @@
 import "../services/dotenv";
 import bcrypt from "bcrypt";
-import { accounts, Role } from "./schemas";
+import { accounts, follows, Role } from "./schemas";
 import { BCRYPT } from "../config/bcrypt";
 import { db } from "./db";
 
@@ -30,6 +30,12 @@ const seed = async () => {
 
   await db.delete(accounts).execute();
   await db.insert(accounts).values([EDAR, LORE, MYKE]);
+
+  await db.insert(follows).values([
+    { followerId: EDAR.id, followedId: LORE.id },
+    { followerId: EDAR.id, followedId: MYKE.id },
+    { followerId: LORE.id, followedId: EDAR.id },
+  ]);
 };
 
 seed().catch(console.error);
