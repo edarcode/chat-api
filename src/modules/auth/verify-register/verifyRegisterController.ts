@@ -54,7 +54,7 @@ const page = `
         <body>
           <div>
             <span>¡Enhorabuena! Has verificado tu cuenta correctamente.</span>
-            <a href="${process.env.CLIENT_URL}">Ir a ...</a>
+            <a href="${process.env.CLIENT_URL}/login">Ir a ...</a>
           </div>
         </body>
       </html>
