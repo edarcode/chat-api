@@ -6,14 +6,14 @@ export const getChatService = async (senderId: UUID, receiverId: UUID) => {
     where: (messages, { eq, and }) =>
       and(eq(messages.senderId, senderId), eq(messages.receiverId, receiverId)),
     orderBy: (messages, { desc }) => [desc(messages.createdAt)],
-    limit: 2,
+    limit: 8,
   });
 
   const msgReceived = await db.query.messages.findMany({
     where: (messages, { eq, and }) =>
       and(eq(messages.senderId, receiverId), eq(messages.receiverId, senderId)),
     orderBy: (messages, { desc }) => [desc(messages.createdAt)],
-    limit: 2,
+    limit: 8,
   });
 
   return [...msgSent, ...msgReceived].sort(
