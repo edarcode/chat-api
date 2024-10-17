@@ -28,4 +28,12 @@ io.on("connection", (socket) => {
 
 // server-up
 
-httpServer.listen(PORT, () => console.log(SERVER_ON));
+httpServer.listen(PORT, () => {
+  console.log(SERVER_ON);
+  setInterval(ping, 14 * 60 * 1000);
+});
+
+const ping = async () => {
+  await fetch(process.env.API_BASE_URL!);
+  console.log("pong");
+};
