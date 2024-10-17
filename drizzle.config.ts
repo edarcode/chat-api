@@ -6,11 +6,10 @@ config({ path: ".env" });
 export default defineConfig({
   schema: "./src/db/schemas.ts",
   out: "./src/db/migrations",
-  dialect: "sqlite",
-  // driver: "turso",
+  dialect: "turso",
   dbCredentials: {
-    url: "file:./src/db/chat.db",
-    // url: process.env.DATABASE_URL!,
-    // authToken: process.env.DATABASE_AUTH_TOKEN!,
+    // url: "file:./src/db/chat.db",
+    url: process.env.DATABASE_URL!,
+    authToken: process.env.DATABASE_AUTH_TOKEN!,
   },
 });
