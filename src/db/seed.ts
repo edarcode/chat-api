@@ -1,6 +1,6 @@
 import "../services/dotenv";
 import bcrypt from "bcrypt";
-import { accounts, follows, messages, Role } from "./schemas";
+import { accounts, follows, Role } from "./schemas";
 import { BCRYPT } from "../config/bcrypt";
 import { db } from "./db";
 
@@ -17,38 +17,18 @@ const LORE = {
   password: "123456",
 };
 
-const MYKE = {
-  id: crypto.randomUUID(),
-  email: "myke@gmail.com",
-  password: "123456",
-};
-
 const seed = async () => {
   EDAR.password = await bcrypt.hash(EDAR.password, BCRYPT.salt);
   LORE.password = await bcrypt.hash(LORE.password, BCRYPT.salt);
-  MYKE.password = await bcrypt.hash(MYKE.password, BCRYPT.salt);
 
   await db.delete(accounts).execute();
 
-  await db.insert(accounts).values([EDAR, LORE, MYKE]);
+  await db.insert(accounts).values([EDAR, LORE]);
 
   await db.insert(follows).values([
     { followerId: EDAR.id, followedId: LORE.id },
-    { followerId: EDAR.id, followedId: MYKE.id },
     { followerId: LORE.id, followedId: EDAR.id },
   ]);
-
-  await db.insert(messages).values({
-    senderId: EDAR.id,
-    receiverId: LORE.id,
-    text: "Hola lore, ¿Cómo estás?",
-  });
-
-  await db.insert(messages).values({
-    senderId: LORE.id,
-    receiverId: EDAR.id,
-    text: "Bien, ¿y tú?",
-  });
 };
 
 seed().catch(console.error);
